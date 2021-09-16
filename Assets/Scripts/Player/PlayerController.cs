@@ -9,13 +9,10 @@ public class PlayerController : MonoBehaviour
     public float lerpSpeed = 1f;
     public Transform target;
     public float speed = 2f;
+    public GameObject uiEndGame;  
 
     private bool _canRun;
-    private Vector3 _pos;
-    private void Start()
-    {
-        _canRun = true;
-    }
+    private Vector3 _pos;  
 
     void Update()
     {
@@ -33,6 +30,12 @@ public class PlayerController : MonoBehaviour
         if(collision.transform.tag == tagToCheckEnemy)
         {
             _canRun = false;
+            uiEndGame.SetActive(true);
         }
+    }
+    public void StartGame()
+    {
+        _canRun = true;
+
     }
 }
