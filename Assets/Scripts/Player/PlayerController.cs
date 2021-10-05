@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Lerp")]
     public string tagToCheckEnemy = "Enemy";
+    public string tagToCheckEndLine = "EndLine";
     public float lerpSpeed = 1f;
     public Transform target;
     public float speed = 2f;
@@ -29,9 +30,20 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.transform.tag == tagToCheckEnemy)
         {
-            _canRun = false;
-            uiEndGame.SetActive(true);
+            EndGame();
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == tagToCheckEndLine)
+        {
+            EndGame();
+        }
+    }
+    private void EndGame()
+    {
+        _canRun = false;
+        uiEndGame.SetActive(true);
     }
     public void StartGame()
     {
