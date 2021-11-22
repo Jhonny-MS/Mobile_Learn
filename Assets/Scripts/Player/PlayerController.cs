@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Master.Core.Singleton;
+using TMPro;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -11,7 +12,12 @@ public class PlayerController : Singleton<PlayerController>
     public float lerpSpeed = 1f;
     public Transform target;
     public float speed = 2f;
-    public GameObject uiEndGame;  
+    public GameObject uiEndGame;
+
+    public bool invencible;
+
+    [Header("Text")]
+    public TextMeshPro uiTextPowerUp;
 
     private bool _canRun;
     private Vector3 _pos;
@@ -36,14 +42,14 @@ public class PlayerController : Singleton<PlayerController>
     {
         if(collision.transform.tag == tagToCheckEnemy)
         {
-            EndGame();
+            if (!invencible) EndGame();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == tagToCheckEndLine)
         {
-            EndGame();
+            if (!invencible) EndGame();
         }
     }
     private void EndGame()
@@ -57,9 +63,17 @@ public class PlayerController : Singleton<PlayerController>
 
     }
     #region POWERUPS
+    public void SetPowerUpText(string s)
+    {
+        uiTextPowerUp.text = s;
+    }
     public void PowerUpSpeedUp(float f)
     {
         _currentSpeed = f;
+    }
+    public void SetInvencible(bool b = true)
+    {
+        invencible = b;
     }
     public void ResetSpeed()
     {
