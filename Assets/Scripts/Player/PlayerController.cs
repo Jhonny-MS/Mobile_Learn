@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Master.Core.Singleton;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     [Header("Lerp")]
     public string tagToCheckEnemy = "Enemy";
@@ -13,8 +14,13 @@ public class PlayerController : MonoBehaviour
     public GameObject uiEndGame;  
 
     private bool _canRun;
-    private Vector3 _pos;  
+    private Vector3 _pos;
+    private float _currentSpeed;
 
+    private void Start()
+    {
+        ResetSpeed();
+    }
     void Update()
     {
         if (!_canRun) return;
@@ -24,7 +30,7 @@ public class PlayerController : MonoBehaviour
         _pos.z = transform.position.z;
 
         transform.position = Vector3.Lerp(transform.position, _pos, lerpSpeed * Time.deltaTime);
-        transform.Translate(transform.forward * speed * Time.deltaTime);
+        transform.Translate(transform.forward * _currentSpeed * Time.deltaTime);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -50,4 +56,14 @@ public class PlayerController : MonoBehaviour
         _canRun = true;
 
     }
+    #region POWERUPS
+    public void PowerUpSpeedUp(float f)
+    {
+        _currentSpeed = f;
+    }
+    public void ResetSpeed()
+    {
+        _currentSpeed = speed;
+    }
+    #endregion
 }
