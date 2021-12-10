@@ -23,10 +23,14 @@ public class Collectable : MonoBehaviour
             Collect();
         }
     }
+    protected virtual void HideItems()
+	{
+        if (graficItem != null) graficItem.SetActive(false);
+        Invoke("HideObject", timeToHide);
+    }
     protected virtual void Collect()
     {
-        if (graficItem != null) graficItem.SetActive(false);
-        Invoke("HideObject", timeToHide);        
+        HideItems();
         OnCollect();
     }
     private void HideObject()
