@@ -128,36 +128,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7713046168164935637, guid: c5cbaceab58d19f4899c4b28f6e4226f, type: 3}
   m_PrefabInstance: {fileID: 132228272}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &69519005 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5531986718136724959, guid: 89e20167823a30d459856414377997d1, type: 3}
-  m_PrefabInstance: {fileID: 727606618}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &69519006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5156129202013452133, guid: 89e20167823a30d459856414377997d1, type: 3}
   m_PrefabInstance: {fileID: 727606618}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &69519007
+--- !u!114 &69519007 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 814363017510039031, guid: 89e20167823a30d459856414377997d1, type: 3}
+  m_PrefabInstance: {fileID: 727606618}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69519005}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59b75624bd3a11d1db2bb0e2130e484d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 727606619}
-  animationSetups:
-  - type: 0
-    trigger: idle
-  - type: 1
-    trigger: run
-  - type: 2
-    trigger: dead
 --- !u!4 &121454581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7221812240437714365, guid: 0df262d0660a8fb4f8b422e1fc9edd80, type: 3}
@@ -1343,11 +1329,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89e20167823a30d459856414377997d1, type: 3}
---- !u!95 &727606619 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7193805671317595757, guid: 89e20167823a30d459856414377997d1, type: 3}
-  m_PrefabInstance: {fileID: 727606618}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763398971
 GameObject:
   m_ObjectHideFlags: 0
@@ -3744,7 +3725,7 @@ MonoBehaviour:
   tagToCheckEndLine: EndLine
   lerpSpeed: 10
   target: {fileID: 811532747}
-  speed: 5
+  speed: 7
   uiEndGame: {fileID: 1766847891}
   invencible: 0
   uiTextPowerUp: {fileID: 1666688032}
