@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Transform container;
+	public List<GameObject> levels;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField] private int _index;
+	private GameObject _currentLevel;
+
+	private void Awake()
+	{
+		SpawnNextLevel();
+	}
+	private void SpawnNextLevel()
+	{
+		if(_currentLevel != null)
+		{
+			Destroy(_currentLevel);
+			_index++;
+
+			if(_index >= levels.Count)
+			{
+				ResetLevelIndex();
+			}
+		}
+		_currentLevel = Instantiate(levels[_index], container);
+		_currentLevel.transform.localPosition = Vector3.zero;
+	}
+
+	private void ResetLevelIndex()
+	{
+		_index = 0;
+	}
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.D))
+		{
+			SpawnNextLevel();
+		}
+	}
 }
