@@ -6,20 +6,16 @@ public class LevelManager : MonoBehaviour
 {
 	public Transform container;
 	public List<GameObject> levels;
+	
 
-	[Header("Pieces")]
-	public List<LevelPieceBase> levelPiecesStart;
-	public List<LevelPieceBase> levelPieces;
-	public List<LevelPieceBase> levelPiecesEnd;
-
-	public int piecesNumberStart = 2;
-	public int piecesNumber = 5;
-	public int piecesNumberEnd = 1;
+	public List<LevelPieceBasedSetup> levelPieceBasedSetups;
+	
 
 	[SerializeField] private int _index;
 	private GameObject _currentLevel;
 
-	private List<LevelPieceBase> _spawnedPieces;
+	private List<LevelPieceBase> _spawnedPieces = new List<LevelPieceBase>();
+	private LevelPieceBasedSetup _currSetup;
 
 	private void Awake()
 	{
@@ -49,19 +45,30 @@ public class LevelManager : MonoBehaviour
 	#region 
 	private void CreateLevelPieces()
 	{
-		_spawnedPieces = new List<LevelPieceBase>();
+		ClearSpawnedPieces();
 
-		for (int i = 0; i < piecesNumberStart; i++)
-		{
-			CreateLevelPiece(levelPiecesStart);
+		if (_currSetup != null)
+		{			
+			_index++;
+
+			if (_index >= levelPieceBasedSetups.Count)
+			{
+				ResetLevelIndex();
+			}
 		}
-		for (int i = 0; i < piecesNumber; i++)
+		_currSetup = levelPieceBasedSetups[_index];
+
+		for (int i = 0; i < _currSetup.piecesNumberStart; i++)
 		{
-			CreateLevelPiece(levelPieces);
+			CreateLevelPiece(_currSetup.levelPiecesStart);
 		}
-		for (int i = 0; i < piecesNumberEnd; i++)
+		for (int i = 0; i < _currSetup.piecesNumber; i++)
 		{
-			CreateLevelPiece(levelPiecesEnd);
+			CreateLevelPiece(_currSetup.levelPieces);
+		}
+		for (int i = 0; i < _currSetup.piecesNumberEnd; i++)
+		{
+			CreateLevelPiece(_currSetup.levelPiecesEnd);
 		}
 	}
 	private void CreateLevelPiece(List<LevelPieceBase> list)
@@ -76,7 +83,22 @@ public class LevelManager : MonoBehaviour
 			spawnedPieces.transform.position = lastPiece.endPiece.position;
 		}
 
+		foreach(var p in spawnedPieces.GetComponentsInChildren<ArtPiece>())
+		{
+			p.ChangePiece(ArtManager.Instance.GetSetupByType(_currSetup.artType).gameObject);
+		}
+
 		_spawnedPieces.Add(spawnedPieces);
+	}
+
+	private void ClearSpawnedPieces()
+	{	
+		for(int i = _spawnedPieces.Count - 1; i >= 0; i--)
+		{
+			Destroy(_spawnedPieces[i].gameObject);
+		}
+
+		_spawnedPieces.Clear();
 	}
 	#endregion
 	private void Update()
