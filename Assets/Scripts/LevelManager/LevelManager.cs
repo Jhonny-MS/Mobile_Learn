@@ -7,12 +7,24 @@ public class LevelManager : MonoBehaviour
 	public Transform container;
 	public List<GameObject> levels;
 
+	[Header("Pieces")]
+	public List<LevelPieceBase> levelPiecesStart;
+	public List<LevelPieceBase> levelPieces;
+	public List<LevelPieceBase> levelPiecesEnd;
+
+	public int piecesNumberStart = 2;
+	public int piecesNumber = 5;
+	public int piecesNumberEnd = 1;
+
 	[SerializeField] private int _index;
 	private GameObject _currentLevel;
 
+	private List<LevelPieceBase> _spawnedPieces;
+
 	private void Awake()
 	{
-		SpawnNextLevel();
+		//SpawnNextLevel();
+		CreateLevelPieces();
 	}
 	private void SpawnNextLevel()
 	{
@@ -34,6 +46,39 @@ public class LevelManager : MonoBehaviour
 	{
 		_index = 0;
 	}
+	#region 
+	private void CreateLevelPieces()
+	{
+		_spawnedPieces = new List<LevelPieceBase>();
+
+		for (int i = 0; i < piecesNumberStart; i++)
+		{
+			CreateLevelPiece(levelPiecesStart);
+		}
+		for (int i = 0; i < piecesNumber; i++)
+		{
+			CreateLevelPiece(levelPieces);
+		}
+		for (int i = 0; i < piecesNumberEnd; i++)
+		{
+			CreateLevelPiece(levelPiecesEnd);
+		}
+	}
+	private void CreateLevelPiece(List<LevelPieceBase> list)
+	{
+		var piece = list[Random.Range(0, list.Count)];
+		var spawnedPieces = Instantiate(piece, container);
+
+		if(_spawnedPieces.Count > 0)
+		{
+			var lastPiece = _spawnedPieces[_spawnedPieces.Count-1];
+
+			spawnedPieces.transform.position = lastPiece.endPiece.position;
+		}
+
+		_spawnedPieces.Add(spawnedPieces);
+	}
+	#endregion
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.D))
