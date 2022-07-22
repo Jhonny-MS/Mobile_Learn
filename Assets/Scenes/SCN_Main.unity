@@ -5949,7 +5949,9 @@ MonoBehaviour:
   levelPieceBasedSetups:
   - {fileID: 11400000, guid: 92b0412799e7af84cade13029e1a6573, type: 2}
   - {fileID: 11400000, guid: 8ea5df3b507cfcf428638ecc70379295, type: 2}
+  - {fileID: 11400000, guid: f21363d252d3a5b47a4cdb454284867f, type: 2}
   _index: 0
+  _spawnedPieces: []
 --- !u!4 &1654566467
 Transform:
   m_ObjectHideFlags: 0
